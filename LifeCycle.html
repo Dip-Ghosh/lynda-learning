@@ -10,11 +10,14 @@
 </head>
 <body>
 <div id="app">
+
     <div class="container">
+
         <div class="row">
             <div class="col-md-12">
-                <h1>Filtert Data Search</h1>
+                <h1>Add Data to Card</h1>
             </div>
+
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -30,11 +33,21 @@
                             </div>
                             <input type="range" class="custom-range" min="0" max="500" v-model="maximum">
                         </div>
+
+                            <div class="navbar-text ml-auto">
+                                <b>cart: </b>
+                                <span v-if="cart.length>0">{{cart.length}}</span>
+                                <span v-else>0</span>
+
+                            </div>
+
+
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>price</th>
@@ -43,10 +56,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="product in products"
-                                        v-if="product.price <  Number(maximum) ">
-
-
+                                    <tr v-for="product in products" v-if="product.price <  Number(maximum) ">
+                                        <td><button v-on:click="addItem(product.id)" class="btn btn-info">+</button> </td>
                                         <td>{{ product.name }}</td>
                                         <td>{{ product.description }}</td>
                                         <td>{{ product.price }}</td>
@@ -75,8 +86,15 @@
         el: '#app',
         data: {
             maximum :99,
-            products :null
+            products :null,
+            cart:[]
         },
+        methods:{
+            addItem:function(product){
+                console.log(this.cart);
+                this.cart.push(product);
+            },
+            },
         mounted: function (){
             fetch('https://hplussport.com/api/products/order/price')
             .then(response => response.json())
