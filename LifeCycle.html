@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form--inline mr-auto">
-                                    <label for="">Max</label>
+                                    <label for="forMax">Max</label>
                                     <input type="text" id="formMax" class="form-control w-25" v-model="maximum">
                                 </div>
 
@@ -70,50 +70,20 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 <script>
-    var data = {
-        maximum: 1000,
-        products: [
-            {
-                name: 'Product 1',
-                description: 'This is product 1',
-                price: '100',
-                image: 'https://picsum.photos/200/300'
-            },
-            {
-                name: 'Product 2',
-                description: 'This is product 2',
-                price: '200',
-                image: 'https://picsum.photos/200/300'
-            },
-            {
-                name: 'Product 3',
-                description: 'This is product 3',
-                price: '300',
-                image: 'https://picsum.photos/200/300'
-            },
-            {
-                name: 'Product 4',
-                description: 'This is product 4',
-                price: '400',
-                image: 'https://picsum.photos/200/300'
-            },
-            {
-                name: 'Product 5',
-                description: 'This is product 5',
-                price: '500',
-                image: 'https://picsum.photos/200/300'
-            },
-            {
-                name: 'Product 6',
-                description: 'This is product 6',
-                price: '600',
-            }
-        ]
 
-    }
     var app = new Vue({
         el: '#app',
-        data: data
+        data: {
+            maximum :99,
+            products :null
+        },
+        mounted: function (){
+            fetch('https://hplussport.com/api/products/order/price')
+            .then(response => response.json())
+            .then(data=>{
+                this.products = data;
+            })
+        },
     })
 </script>
 </body>
